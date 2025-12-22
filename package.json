@@ -8,7 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "server:dev": "nodemon server.js",
-    "server:start": "node server.js"
+    "server:start": "node server.js",
+    "test:frontend": "vitest run src/__tests__",
+    "test:backend": "vitest run tests/backend",
+    "test:all": "vitest run"
   },
   "dependencies": {
     "axios": "^1.13.2",
@@ -24,8 +27,16 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
     "@vitejs/plugin-vue": "^6.0.1",
-    "vite": "^7.2.4"
+    "@vue/test-utils": "^2.4.6",
+    "babel-jest": "^30.2.0",
+    "jest": "^30.2.0",
+    "jsdom": "^27.3.0",
+    "supertest": "^7.1.4",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.16"
   },
   "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
   "main": "vite.config.js",

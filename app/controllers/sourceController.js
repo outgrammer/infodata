@@ -1,5 +1,9 @@
 import { Op } from 'sequelize'
-import Source from '../models/sourceModel.js'
+import SourceModel from '../models/sourceModel.js'
+import { sequelize } from '../../config/database.js'
+
+// 初始化模型
+const Source = SourceModel(sequelize)
 
 // 获取所有信息源（支持分页、搜索、分类过滤）
 export const getAllSources = async (req, res) => {
@@ -98,14 +102,17 @@ export const createSource = async (req, res) => {
 export const updateSource = async (req, res) => {
   try {
     const id = req.params.id
-    const [updated] = await Source.update(req.body, {
-      where: { id: id },
-      returning: true // 返回更新后的记录
-    })
     
-    if (updated === 0) {
+    // 先检查记录是否存在
+    const existingSource = await Source.findByPk(id)
+    if (!existingSource) {
       return res.status(404).json({ success: false, message: '信息源未找到' })
     }
+    
+    // 更新记录
+    const [updated] = await Source.update(req.body, {
+      where: { id: id }
+    })
     
     const updatedSource = await Source.findByPk(id)
     res.json({ success: true, data: updatedSource, message: '信息源更新成功' })

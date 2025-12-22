@@ -2,8 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import { sequelize } from './database.js'
 
-// 导入所有模型
-import Source from '../app/models/sourceModel.js'
+// 导入所有模型工厂函数
+import SourceModel from '../app/models/sourceModel.js'
+
+// 初始化模型
+const Source = SourceModel(sequelize)
 
 // 创建数据目录
 const createDataDir = () => {
